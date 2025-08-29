@@ -1,0 +1,142 @@
+/* Basic styling */
+:root {
+    --bg-color: #000000;         /* Black background */
+    --text-color: #ecf0f1;       /* Light text for readability */
+    --card-bg: #1a1a1a;          /* Dark gray for link background */
+    --link-highlight: #39FF14;   /* Lime green for hover and highlights */
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; /* Hide anything that goes outside the viewport */
+    position: relative;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    z-index: 1; /* Ensure content is on top of background animations */
+}
+
+header h1 {
+    font-size: 5em; /* Significantly larger font size */
+    margin-bottom: 1em;
+    color: var(--link-highlight);
+    text-shadow: 0 0 15px var(--link-highlight); /* Subtle lime glow */
+    animation: pulse 4s infinite alternate;
+}
+
+@keyframes pulse {
+    from { text-shadow: 0 0 10px var(--link-highlight); }
+    to { text-shadow: 0 0 25px var(--link-highlight), 0 0 50px var(--link-highlight); }
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.link-item {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+}
+
+.link-item:hover {
+    transform: translateY(-5px);
+    background-color: var(--link-highlight);
+    color: var(--bg-color);
+}
+
+.link-text {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Background decorations */
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* Three layers of gradients with more frequent and varied stars */
+        radial-gradient(1px 1px at 20% 30%, var(--link-highlight), transparent),
+        radial-gradient(1.5px 1.5px at 65% 80%, var(--link-highlight), transparent),
+        radial-gradient(2px 2px at 80% 10%, var(--link-highlight), transparent),
+        radial-gradient(1px 1px at 10% 90%, var(--link-highlight), transparent),
+        radial-gradient(2.5px 2.5px at 50% 50%, var(--link-highlight), transparent),
+        radial-gradient(1px 1px at 90% 40%, var(--link-highlight), transparent),
+        radial-gradient(1.5px 1.5px at 35% 20%, var(--link-highlight), transparent);
+    background-repeat: repeat;
+    background-size: 150px 150px, 200px 200px, 250px 250px;
+    animation: twinkling 25s infinite alternate, random-move 50s infinite linear;
+    opacity: 1; /* Fully opaque stars for maximum brightness */
+    filter: brightness(1.5) contrast(1.2); /* Boosts brightness and contrast */
+}
+
+@keyframes twinkling {
+    0% { background-position: 0 0, 0 0, 0 0; opacity: 1; }
+    50% { background-position: 200px 200px, -150px -150px, 100px 100px; opacity: 0.9; }
+    100% { background-position: 400px 400px, -300px -300px, 200px 200px; opacity: 1; }
+}
+
+@keyframes random-move {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5%, 10%); }
+    50% { transform: translate(5%, -15%); }
+    75% { transform: translate(-10%, 5%); }
+    100% { transform: translate(0, 0); }
+}
+
+.moon {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    width: 150px;
+    height: 150px;
+    background-color: #333333;
+    border-radius: 50%;
+    box-shadow: 0 0 40px 10px var(--link-highlight);
+    animation: moon-pulse 5s infinite alternate;
+}
+
+@keyframes moon-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 40px 10px var(--link-highlight); }
+    100% { transform: scale(1.05); box-shadow: 0 0 60px 15px var(--link-highlight); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 3em;
+    }
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+    .moon {
+        width: 80px;
+        height: 80px;
+    }
+}
