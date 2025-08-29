@@ -17,7 +17,7 @@ body {
     min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-    overflow: hidden; /* Hide anything that goes outside the viewport */
+    overflow-x: hidden; /* Prevent horizontal overflow on smaller screens */
     position: relative;
 }
 
@@ -30,10 +30,10 @@ body {
 }
 
 header h1 {
-    font-size: 5em; /* Significantly larger font size */
+    font-size: 5em;
     margin-bottom: 1em;
     color: var(--link-highlight);
-    text-shadow: 0 0 15px var(--link-highlight); /* Subtle lime glow */
+    text-shadow: 0 0 15px var(--link-highlight);
     animation: pulse 4s infinite alternate;
 }
 
@@ -44,6 +44,8 @@ header h1 {
 
 .links-grid {
     display: grid;
+    /* This makes the grid flexible, showing as many columns as possible
+       until the screen is too small, then stacking them. */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
@@ -60,6 +62,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     min-height: 120px;
+    text-align: center; /* Center text within the link item */
 }
 
 .link-item:hover {
@@ -71,6 +74,8 @@ header h1 {
 .link-text {
     font-size: 1.5em;
     font-weight: bold;
+    /* Wrap text if it's too long for smaller screens */
+    word-wrap: break-word;
 }
 
 /* Background decorations */
@@ -81,7 +86,6 @@ header h1 {
     width: 100%;
     height: 100%;
     background-image: 
-        /* Three layers of gradients with more frequent and varied stars */
         radial-gradient(1px 1px at 20% 30%, var(--link-highlight), transparent),
         radial-gradient(1.5px 1.5px at 65% 80%, var(--link-highlight), transparent),
         radial-gradient(2px 2px at 80% 10%, var(--link-highlight), transparent),
@@ -92,8 +96,8 @@ header h1 {
     background-repeat: repeat;
     background-size: 150px 150px, 200px 200px, 250px 250px;
     animation: twinkling 25s infinite alternate, random-move 50s infinite linear;
-    opacity: 1; /* Fully opaque stars for maximum brightness */
-    filter: brightness(1.5) contrast(1.2); /* Boosts brightness and contrast */
+    opacity: 1;
+    filter: brightness(1.5) contrast(1.2);
 }
 
 @keyframes twinkling {
@@ -127,16 +131,71 @@ header h1 {
     100% { transform: scale(1.05); box-shadow: 0 0 60px 15px var(--link-highlight); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
+/* ============================
+   Responsive adjustments
+   ============================ */
+
+/*
+  This media query targets tablet-sized screens.
+  It reduces the heading size and repositions the moon slightly
+  to prevent overlap on medium-sized viewports.
+*/
+@media (max-width: 900px) {
     header h1 {
-        font-size: 3em;
+        font-size: 4em;
     }
-    .links-grid {
-        grid-template-columns: 1fr;
-    }
+
     .moon {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        height: 120px;
+        top: 8%;
+        right: 12%;
+    }
+
+    .link-text {
+        font-size: 1.2em; /* Smaller font size for link text */
+    }
+}
+
+/*
+  This media query targets mobile-sized screens.
+  It makes the link grid a single column, further reduces text sizes,
+  and adjusts the moon for optimal display on small devices.
+*/
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 2.5em; /* Smaller heading for phones */
+        margin-bottom: 0.5em;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr; /* Single column layout for phones */
+        gap: 15px; /* Reduce gap between links */
+    }
+
+    .link-item {
+        min-height: 80px; /* Smaller button height on phones */
+        padding: 15px;
+    }
+
+    .link-text {
+        font-size: 1.1em; /* Further reduced font size for legibility */
+    }
+
+    .moon {
+        width: 60px;
+        height: 60px;
+        top: 5%;
+        right: 5%;
+        box-shadow: 0 0 20px 5px var(--link-highlight); /* Smaller glow */
+    }
+
+    @keyframes moon-pulse {
+        0% { transform: scale(1); box-shadow: 0 0 20px 5px var(--link-highlight); }
+        100% { transform: scale(1.05); box-shadow: 0 0 30px 8px var(--link-highlight); }
     }
 }
