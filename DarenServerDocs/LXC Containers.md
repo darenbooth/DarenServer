@@ -19,6 +19,7 @@ exit
 Then update.
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 go install github.com/qdm12/ddns-updater/cmd/ddns-updater@latest
 ```
 
@@ -34,7 +35,7 @@ cd /etc/ddns-updater
 ```
 
 Detach from screen "Ctrl + A" then "D"
-# (102) - Nginx Proxy Manager v2.13.7
+# (102) - Nginx Proxy Manager v2.14.0
 
 ## Information
 
@@ -46,6 +47,7 @@ ipv4 - 192.168.1.26/24
 To update:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 cd /opt/nginx-proxy-manager
 docker compose pull
 docker compose up -d
@@ -63,6 +65,7 @@ ipv4 - 192.168.1.27/24
 To Update:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 ```
 
 To update website:
@@ -90,6 +93,7 @@ ipv4 - 192.168.1.28/24
 To update version:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
 ```
 ```
@@ -108,6 +112,7 @@ ipv4 - 192.168.1.29/24
 To update Immich version:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 cd /mnt/immich-data
 docker compose pull && docker compose up -d
 docker image prune
@@ -126,6 +131,7 @@ ipv4 - 192.168.1.32/24
 To update:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 ```
 
 To check version:
@@ -143,7 +149,8 @@ ipv4 - 192.168.1.33/24
 
 To update:
 ```
-apt update && apt upgrade
+apt update && apt upgrade -y
+apt autoremove -y
 update
 ```
 
@@ -159,10 +166,11 @@ ipv4 - 192.168.1.34/24
 To update:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 update
 ```
 
-# (109) - Paper-MC v1.21.11-114
+# (109) - Paper-MC v1.21.11-116
 
 ## Information
 
@@ -191,6 +199,7 @@ su root
 ```
 cd
 apt update && apt upgrade -y
+apt autoremove -y
 ```
 
 update paper server:
@@ -281,6 +290,7 @@ su root
 ```
 cd
 apt update && apt upgrade -y
+apt autoremove -y
 /home/palworld/.steam/steam/steamcmd/steamcmd.sh +force_install_dir /home/palworld/PalworldServer +login anonymous +app_update 2394010 validate +quit
 ```
 

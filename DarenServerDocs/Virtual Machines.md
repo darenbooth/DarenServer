@@ -9,6 +9,7 @@ ipv4 - 192.168.1.50/24
 ## Maintenance
 
 Updates are handled through the GUI at ipv4 address. Update OS then Core.
+http://home.darenserver.com
 
 # (200) - Media Server
 
