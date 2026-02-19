@@ -36,6 +36,7 @@ ssh root@192.168.1.52
 To update vm:
 ```
 apt update && apt upgrade -y
+apt autoremove -y
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
 ```
 ```
