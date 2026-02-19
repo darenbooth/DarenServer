@@ -256,7 +256,7 @@ cd minecraft
 ./start.sh
 ```
 
-# (110) - Palworld v0.7.1.86065
+# (110) - Palworld v0.7.1.87654
 
 ## Information
 
@@ -291,13 +291,16 @@ su root
 cd
 apt update && apt upgrade -y
 apt autoremove -y
+```
+```
+su palworld
+```
+```
+cd
 /home/palworld/.steam/steam/steamcmd/steamcmd.sh +force_install_dir /home/palworld/PalworldServer +login anonymous +app_update 2394010 validate +quit
 ```
 
 ### To start server:
-```
-su palworld
-```
 ```
 cd
 screen -S game
