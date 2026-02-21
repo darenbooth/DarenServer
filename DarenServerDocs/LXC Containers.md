@@ -1,312 +1,255 @@
-# (101) - ddns-updater v2.9
+## 🌐 (101) - DDNS Updater
 
-## Information
+### ℹ️ Information
 
-OS - Ubuntu 24.04.3 LTS
-Go Version - go1.25.7 linux/amd64
-ipv4 - 192.168.1.25/24
+- **OS:** Ubuntu 24.04.3 LTS (Go `1.25.7`)
+    
+- **IPv4:** `192.168.1.25`
+    
 
-## Maintenance
+### 🛠️ Maintenance
 
-To Update:
-```
-screen -r game
-```
-Stop the service: "Ctrl + C"
-```
-exit
-```
-Then update.
-```
-apt update && apt upgrade -y
-apt autoremove -y
-go install github.com/qdm12/ddns-updater/cmd/ddns-updater@latest
-```
+1. **Stop Service:** `screen -r game` → `Ctrl+C` → `exit`.
+    
+2. **Update:**
+    
+    Bash
+    
+    ```
+    apt update && apt upgrade -y && apt autoremove -y
+    go install github.com/qdm12/ddns-updater/cmd/ddns-updater@latest
+    ```
+    
+3. **Start:** `screen -S game` → `cd /etc/ddns-updater` → `./ddns-updater`.
+    
+4. **Detach:** `Ctrl+A` then `D`.
+    
 
-To Start:
+---
 
-This needs to be started in a screen when the container restarts.
+## 🛡️ (102) - Nginx Proxy Manager
+
+### ℹ️ Information
+
+- **OS:** Debian 12 (Bookworm)
+    
+- **IPv4:** `192.168.1.26`
+    
+
+### 🛠️ Maintenance
+
+Bash
+
 ```
-screen -S game
-```
-```
-cd /etc/ddns-updater
-./ddns-updater
-```
-
-Detach from screen "Ctrl + A" then "D"
-# (102) - Nginx Proxy Manager v2.14.0
-
-## Information
-
-OS - Debian GNU/Linux 12 (bookworm)
-ipv4 - 192.168.1.26/24
-
-## Maintenance
-
-To update:
-```
-apt update && apt upgrade -y
-apt autoremove -y
+apt update && apt upgrade -y && apt autoremove -y
 cd /opt/nginx-proxy-manager
-docker compose pull
-docker compose up -d
+docker compose pull && docker compose up -d
 ```
 
-# (103) - Nginx Web Server v1.22.1
+---
 
-## Information
+## 🌍 (103) - Nginx Web Server
 
-OS - Debian GNU/Linux 12 (bookworm)
-ipv4 - 192.168.1.27/24
+### ℹ️ Information
 
-## Maintenance
+- **OS:** Debian 12 (Bookworm)
+    
+- **IPv4:** `192.168.1.27`
+    
+- **Version Check:** `curl -I http://192.168.1.27`
+    
 
-To Update:
+### 🛠️ Maintenance
+
+- **OS Update:** `apt update && apt upgrade -y`
+    
+- **Update Website Content:**
+    
+    Bash
+    
+    ```
+    rm -rf /var/www/html/
+    cd /var/www
+    git clone https://github.com/darenbooth/DarenServer.git
+    mv DarenServer html
+    ```
+    
+
+---
+
+## 📂 (104) - File Browser
+
+### ℹ️ Information
+
+- **OS:** Ubuntu 24.04.3 LTS
+    
+- **IPv4:** `192.168.1.28`
+    
+
+### 🛠️ Maintenance
+
+Bash
+
 ```
-apt update && apt upgrade -y
-apt autoremove -y
-```
-
-To update website:
-```
-rm -rf /var/www/html/
-cd /var/www
-git clone https://github.com/darenbooth/DarenServer.git
-mv DarenServer html
-cd
-```
-
-To see version:
-```
-curl -I http://192.168.1.27
-```
-# (104) - File Browser v2.59.0
-
-## Information
-
-OS Version: Ubuntu 24.04.3 LTS
-ipv4 - 192.168.1.28/24
-
-## Maintenance
-
-To update version:
-```
-apt update && apt upgrade -y
-apt autoremove -y
+apt update && apt upgrade -y && apt autoremove -y
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
-```
-```
 reboot
 ```
 
-# (105) - Immich v2.5.6
+---
 
-## Information
+## ⚠️ (105) - Immich (LXC - DEPRECATED)
 
-OS - Debian GNU/Linux 12 (bookworm)
-ipv4 - 192.168.1.29/24
+### ℹ️ Information
 
-## Maintenance
+- **Status:** **Legacy Container** (Migrated to VM 400)
+    
+- **IPv4:** `192.168.1.29`
+    
 
-To update Immich version:
+### 🛠️ Maintenance
+
+_Keep offline unless needed for data verification._
+
+Bash
+
 ```
-apt update && apt upgrade -y
-apt autoremove -y
 cd /mnt/immich-data
 docker compose pull && docker compose up -d
-docker image prune
-cd
+docker image prune -f
 ```
 
-# (106) - Tailscale v1.94.2
+---
 
-## Information
+## 🚀 (106) - Tailscale
 
-OS - Ubuntu 24.04.3 LTS
-ipv4 - 192.168.1.32/24
+### ℹ️ Information
 
-## Maintenance
+- **OS:** Ubuntu 24.04.3 LTS
+    
+- **IPv4:** `192.168.1.32`
+    
 
-To update:
+### 🛠️ Maintenance
+
+- **Update:** `apt update && apt upgrade -y`
+    
+- **Check Version:** `tailscale --version`
+    
+
+---
+
+## 🧙‍♂️ (107) - Wizarr
+
+### ℹ️ Information
+
+- **OS:** Debian 12 (Bookworm)
+    
+- **IPv4:** `192.168.1.33`
+    
+- **Purpose:** Media Invitation Management
+    
+
+### 🛠️ Maintenance
+
+Bash
+
 ```
+# Update System
 apt update && apt upgrade -y
 apt autoremove -y
-```
 
-To check version:
-```
-tailscale --version
-```
-# (107) - Wizarr v2025.12.0
-
-## Information
-
-OS - Debian GNU/Linux 12 (bookworm)
-ipv4 - 192.168.1.33/24
-
-## Maintenance
-
-To update:
-```
-apt update && apt upgrade -y
-apt autoremove -y
+# Update Wizarr (using the built-in update script)
 update
 ```
 
-# (108) - SFTPGo v2.7.0
+---
 
-## Information
+## 📂 (108) - SFTPGo
 
-OS - Debian GNU/Linux 12 (bookworm)
-ipv4 - 192.168.1.34/24
+### ℹ️ Information
 
-## Maintenance
+- **OS:** Debian 12 (Bookworm)
+    
+- **IPv4:** `192.168.1.34`
+    
+- **Purpose:** SFTP/HTTP/WebDAV File Transfer
+    
 
-To update:
+### 🛠️ Maintenance
+
+Bash
+
 ```
+# Update System
 apt update && apt upgrade -y
 apt autoremove -y
+
+# Update SFTPGo (using the built-in update script)
 update
 ```
+---
 
-# (109) - Paper-MC v1.21.11-116
+## 🎮 (109) - Paper-MC (Minecraft)
 
-## Information
+### ℹ️ Information
 
-OS - Ubuntu 24.04.3 LTS
-ipv4 - 192.168.1.35/24
+- **OS:** Ubuntu 24.04.3 LTS
+    
+- **IPv4:** `192.168.1.35`
+    
+- **Service User:** `papermc`
+    
 
-## Maintenance
+### 🛠️ Maintenance
 
-To update:
+1. **Stop:** `screen -r game` → type `stop` → `exit`.
+    
+2. **OS Update (root):** `apt update && apt upgrade -y`
+    
+3. **App Update (papermc user):**
+    
+    - Download latest `.jar` from [papermc.io](https://papermc.io/downloads/paper).
+        
+    - Replace old `.jar` in `/home/papermc/minecraft`.
+        
+    - Update `start.sh` with new filename.
+        
+    - Update Plugins (`plugins/` folder):
+	    EssentialsX - https://essentialsx.net/downloads
+		GriefPrevention - https://www.spigotmc.org/resources/griefprevention.1884/
+		LuckPerms - https://luckperms.net/download
+4. **Start:** `screen -S game` → `./start.sh`.
+    
 
-Stop server:
-```
-screen -r game
-```
-```
-stop
-```
-```
-exit
-```
+---
 
-update container:
-```
-su root
-```
-```
-cd
-apt update && apt upgrade -y
-apt autoremove -y
-```
+## 🥚 (110) - Palworld Server
 
-update paper server:
-navigate to https://papermc.io/downloads/paper
-right click latest version and copy link
-```
-su papermc
-```
-```
-cd
-cd minecraft
-```
-wget  paste url link
-```
-ls
-```
-rm "old_paper.jar"
-```
-nano start.sh
-```
-replace old paper.jar filename with new paper.jar filename.
-"Ctrl + X", "Y", "ENTER" to save
+### ℹ️ Information
 
-update essentials:
-navigate to https://essentialsx.net/downloads
-copy link of latest stable release of EssentialsX
-```
-cd plugins
-ls
-```
-wget paste url link
-rm "old_EssentialsX.jar"
+- **OS:** Ubuntu 24.04.3 LTS
+    
+- **IPv4:** `192.168.1.36`
+    
+- **Service User:** `palworld`
+    
 
-update grief prevention:
-navigate to https://www.spigotmc.org/resources/griefprevention.1884/
-click downlod via external sight
-copy link of latest stable release
-wget paste url link
-rm "old_greif_prevention.jar"
+### 🛠️ Maintenance
 
-update luck perms:
-navigate to https://luckperms.net/download
-copy link of latest stable release for Paper
-wget paste url link
-rm "old_luck_perms.jar"
+1. **Shutdown (In-Game):** `/AdminPassword {pw}` → `/Save` → `/DoExit`.
+    
+2. **Update Container (root):** `apt update && apt upgrade -y`.
+    
+3. **Update Server (palworld user):**
+    
+    Bash
+    
+    ```
+    /home/palworld/.steam/steam/steamcmd/steamcmd.sh +force_install_dir /home/palworld/PalworldServer +login anonymous +app_update 2394010 validate +quit
+    ```
+    
+4. **Start:** `screen -S game` → `cd PalworldServer` → `./PalServer.sh -publiclobby`.
+    
 
-To start server:
--run as papermc user-
-```
-screen -S game
-```
-```
-cd minecraft
-./start.sh
-```
-
-# (110) - Palworld v0.7.1.87654
-
-## Information
-
-OS - Ubuntu 24.04.3 LTS
-ipv4 - 192.168.1.36/24
-
-## Maintenance
-
-### How to shutdown server:
-
-In game:
-/AdminPassword {password}
-/Save
-
-For Immediate shutdown:
-/DoExit
-
-For timed shutdown:
-/Shutdown {seconds} {"message"}
-
-### To update server:
-```
-screen -r game
-```
-```
-exit
-```
-```
-su root
-```
-```
-cd
-apt update && apt upgrade -y
-apt autoremove -y
-```
-```
-su palworld
-```
-```
-cd
-/home/palworld/.steam/steam/steamcmd/steamcmd.sh +force_install_dir /home/palworld/PalworldServer +login anonymous +app_update 2394010 validate +quit
-```
-
-### To start server:
-```
-cd
-screen -S game
-```
-```
-cd PalworldServer
-./PalServer.sh -publiclobby
-```
-
+---

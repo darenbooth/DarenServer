@@ -1,109 +1,124 @@
-# (100) - Home Assistant 
+## 🏠 (100) - Home Assistant (HAOS)
 
-## Information
+### ℹ️ Information
 
-OS Version: Home Assistant OS 17.1
-Home Assistant Core: 2026.2.2
-ipv4 - 192.168.1.50/24
+- **Type:** Home Assistant OS (Managed VM)
+    
+- **IPv4:** `192.168.1.50`
+    
+- **Web UI:** [home.darenserver.com](http://home.darenserver.com)
+    
+- **OS Version:** 17.1
+    
+- **Core Version:** 2026.2.2
+    
 
-## Maintenance
+### 🛠️ Maintenance
 
-Updates are handled through the GUI at ipv4 address. Update OS then Core.
-http://home.darenserver.com
-
-# (200) - Media Server
-
-## Information
-
-OS Version: Debian GNU/Linux 13 (trixie)
-ipv4 - 192.168.1.52/24
-
-### Services
-
-Jellyfin v10.11.4 - Port:8096
-qBittorrent v5.1.0 - Port:8080
-Prowlarr v2.3.0.5236 - Port:9696
-Sonarr v4.0.16.2944 - Port:8989
-Radarr v6.0.4.10291 - Port:7878
-Lidarr v3.1.0.4875 - Port:8686
-
-## Maintenance
-
-Connect via SSH:
-```
-ssh root@192.168.1.52
-```
-To update vm:
-```
-apt update && apt upgrade -y
-apt autoremove -y
-curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
-```
-```
-reboot
-```
-
-Updates are handled through the GUI for each service at ipv4 address:port
-
-# (300) - Windows Server 2025
-
-I'm not doing anything here.
-
-
-# (400) - debian-docker
-
-### 🛠️ Maintenance Routine
-
-#### Step 1: Update the OS (Debian)
-
-This updates the Linux kernel and security packages.
-
-Bash
-
-```
-ssh debian-docker-admin@192.168.1.51
-```
-```
-sudo apt update && sudo apt upgrade -y
-```
-
-#### Step 2: Update Immich (Docker)
-
-Since Immich is a fast-moving project, always check their [Release Notes](https://github.com/immich-app/immich/releases) first for "Breaking Changes."
-
-Bash
-
-```
-cd /opt/immich
-# Pull the latest images defined in your docker-compose.yml
-docker compose pull
-
-# Restart the containers with the new images
-docker compose up -d
-
-# Clean up old, unused images to save disk space
-docker image prune -f
-```
-
-#### Step 3: Monthly Database Maintenance
-
-Postgres benefits from an occasional "Vacuum" to keep things snappy.
-
-Bash
-
-```
-docker exec -it immich_postgres vacuumdb -U Daren --all --analyze
-```
+- **Updates:** Managed via **Settings > System > Updates**.
+    
+- **Order:** Update **Operating System** first → Reboot → Update **Core**.
+    
+- **Backups:** Always verify a "Full Backup" exists before updating the OS.
+    
 
 ---
 
-### 🚨 Troubleshooting Commands
+## 🎬 (200) - Media Server
 
-- **View Logs:** `docker compose logs -f --tail=100`
+### ℹ️ Information
+
+- **Type:** Debian VM (Docker-based)
     
-- **Check Container Status:** `docker ps`
+- **IPv4:** `192.168.1.52`
     
-- **Check Disk Usage:** `df -h`
+- **SSH:** `ssh root@192.168.1.52`
     
+
+### 🛠️ Maintenance
+
+Run these commands monthly to keep the OS and the Filebrowser binary updated.
+
+Bash
+
+```
+# Update System
+apt update && apt upgrade -y
+apt autoremove -y
+
+# Update Filebrowser Binary
+curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+
+# Reboot to apply kernel updates
+reboot
+```
+
+### 📦 Services & GUI Access
+
+_Services on this VM run on specific ports. Update these via their respective "Check for Update" buttons in their Web UIs._
+
+| Service         | Port   | Description           |
+| --------------- | ------ | --------------------- |
+| **Jellyfin**    | `8096` | Media Streaming       |
+| **Filebrowser** | `8081` | Cloud File Management |
+| **qBittorrent** | `8080` | Torrent Client        |
+| **Prowlarr**    | `9696` | Media Indexer         |
+| **Radarr**      | `7878` | Movies                |
+| **Sonarr**      | `8989` | Shows                 |
+| **Lidarr**      | `8686` | Music                 |
+
+## 🖥️ (300) - Windows Server
+
+### ℹ️ Information
+
+- **Type:** Windows Server (VM)
+    
+- **IPv4:** `[TBD]`
+    
+- **RDP:** `[TBD]`
+    
+- **Purpose:** `[TBD - e.g., Active Directory, Game Server, BlueIris]`
+    
+
+### 🛠️ Maintenance
+
+- **Windows Update:** Settings > Update & Security > Windows Update.
+    
+- **VirtIO Drivers:** Periodically check for VirtIO driver updates in Proxmox to ensure disk/network stability.
+    
+- **Disk Cleanup:** Run `Optimize Drives` (defrag) monthly. Since it's a VM, Windows will issue a `TRIM` command to the Proxmox storage, which helps reclaim unused space on the host.
+    
+
+---
+
+## 🐳 (400) - Debian-Docker (Immich)
+
+### ℹ️ Information
+
+- **Type:** Debian 13 VM (Docker)
+    
+- **IPv4:** `192.168.1.51`
+    
+- **SSH:** `ssh debian-docker-admin@192.168.1.51`
+    
+- **Path:** `/opt/immich`
+    
+
+### 🛠️ Maintenance
+
+Bash
+
+```
+# 1. Update OS
+sudo apt update && sudo apt upgrade -y
+
+# 2. Update Immich Stack
+cd /opt/immich
+docker compose pull && docker compose up -d
+docker image prune -f
+
+# 3. Database Health
+docker exec -it immich_postgres vacuumdb -U Daren --all --analyze
+```
 
 ---

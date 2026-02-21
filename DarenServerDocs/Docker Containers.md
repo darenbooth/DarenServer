@@ -1,22 +1,32 @@
-# OpenWebUI
-## Maintenance
+## 🤖 (PC) - Open WebUI (Local AI)
 
-To Update:
+### ℹ️ Information
+
+- **Host:** Aorus Gaming PC
+    
+- **Path:** `/Docker/open-webui` 
+    
+- **Web UI:** `https://192.168.1.11:3000`
+    
+
+### 🛠️ Maintenance
+
+**To Update:**
+
+Bash
+
 ```
-docker pull ghcr.io/open-webui/open-webui:cuda
+# Navigate to the folder
+cd Docker/open-webui
+
+# Pull and restart
+docker compose pull
+docker compose up -d
+
+# Cleanup
+docker image prune -f
 ```
-```
-docker rm -f open-webui
-```
-```
-docker run -d -p 3000:8080 \
-  --device nvidia.com/gpu=all \
-  --add-host=host.docker.internal:host-gateway \
-  -e SCARF_NO_ANALYTICS=True \
-  -e DO_NOT_TRACK=True \
-  -e OLLAMA_MAX_LOADED_MODELS=1 \
-  -v open-webui:/app/backend/data \
-  --name open-webui \
-  --restart always \
-  ghcr.io/open-webui/open-webui:cuda
-```
+
+---
+
+---
