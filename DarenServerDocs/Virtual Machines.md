@@ -49,3 +49,61 @@ Updates are handled through the GUI for each service at ipv4 address:port
 
 I'm not doing anything here.
 
+
+# (400) - debian-docker
+
+### 🛠️ Maintenance Routine
+
+#### Step 1: Update the OS (Debian)
+
+This updates the Linux kernel and security packages.
+
+Bash
+
+```
+ssh debian-docker-admin@192.168.1.51
+```
+```
+sudo apt update && sudo apt upgrade -y
+```
+
+#### Step 2: Update Immich (Docker)
+
+Since Immich is a fast-moving project, always check their [Release Notes](https://github.com/immich-app/immich/releases) first for "Breaking Changes."
+
+Bash
+
+```
+cd /opt/immich
+# Pull the latest images defined in your docker-compose.yml
+docker compose pull
+
+# Restart the containers with the new images
+docker compose up -d
+
+# Clean up old, unused images to save disk space
+docker image prune -f
+```
+
+#### Step 3: Monthly Database Maintenance
+
+Postgres benefits from an occasional "Vacuum" to keep things snappy.
+
+Bash
+
+```
+docker exec -it immich_postgres vacuumdb -U Daren --all --analyze
+```
+
+---
+
+### 🚨 Troubleshooting Commands
+
+- **View Logs:** `docker compose logs -f --tail=100`
+    
+- **Check Container Status:** `docker ps`
+    
+- **Check Disk Usage:** `df -h`
+    
+
+---
